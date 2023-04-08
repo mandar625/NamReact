@@ -2,7 +2,7 @@
   "name": "01_inception",
   "version": "1.0.0",
   "description": "This is npm ",
-  "main": "App.js",
+  
   "scripts": {
     "test": "jest"
   },
@@ -12,6 +12,11 @@
   "author": "mandar marathe",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.8.3"
+    "parcel": "^2.8.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
