@@ -1,0 +1,17 @@
+{
+  "name": "01_inception",
+  "version": "1.0.0",
+  "description": "This is npm ",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "mandar marathe",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  }
+}
