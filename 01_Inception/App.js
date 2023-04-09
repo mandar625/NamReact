@@ -1,46 +1,50 @@
-/**
- *              <div id="parent">
-                  <div id="child">
-                    <h1></h1>
-                    <h2></h2>
-                   </div>
-                  <div id="child2">
-                    <h1></h1>
-                    <h2></h2>
-                   </div>
-                </div>
- *
- * 
- * ReactElement(object) = > Html(that browser Understand)
- */
+
 import React from "react";
-import  ReactDOM  from "react-dom";
-const parent = React.createElement(
-  "div",
-  { id: "parent" },
-  [ React.createElement(
-    "div",
-    { id: "child" },
-    [React.createElement("h1", {}, "Hellow this is done by nested  html structure React"),
-    React.createElement("h2", {}, "Hellow this is done by nested  html structure React")]
-  ), React.createElement(
-    "div",
-    { id: "child2" },
-    [React.createElement("h1", {}, "Hellow this is done by nested  html structure React"),
-    React.createElement("h2", {}, "Hellow this is done by nested  html structure React")]
-  )]
+import ReactDOM from "react-dom";
 
- 
+// React.createElement => object => HtmlRender
+
+const heading = React.createElement(
+  "h1",
+  { id: "headind" },
+  "this is mandar marathe 🍟"
 );
+console.log(heading);
 
-// const heading = React.createElement(
-//   "h1",
-//   { id: "heading", className: "headingClass" },
-//   "hiii I am h1 By React"
-// );
+// jsx => html like
+// React element
+const jsxHeading = <h1 id="heading">hii form jsx syntax 🍟</h1>;
 
-// console.log(heading); // object
+
+
+
+
+// React function component
+
+const number =100
+
+const Heading = () => {
+  return (
+    <div id="container">
+      <h1> React functional component</h1>
+       <h2>  {  number +23 }</h2> 
+       <h3>{jsxHeading}</h3>
+      <Heading1></Heading1>    {/* component composition */}
+      {Heading1()}
+    </div>
+  );
+};
+const Heading1 = () => {
+  return (
+    <div id="child">
+      <h1> React functional component1</h1>
+    </div>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(parent);
+// root.render(heading)
+// root.render(jsxHeading)
+root.render(<Heading/>)
+// root.render( <><Heading /><Heading1 /></>);
