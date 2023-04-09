@@ -1,50 +1,2098 @@
-
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
-// React.createElement => object => HtmlRender
+/**
+ * Building Fodd ordering App
+ *
+ * Header
+ *   logo
+ *   Nav Links
+ * Body
+ *   Search Bar
+ *    Items Cards
+ * Footer
+ *   Copyright
+ *    Some links
+ *    Address
+ *
+ *
+ */
 
-const heading = React.createElement(
-  "h1",
-  { id: "headind" },
-  "this is mandar marathe 🍟"
-);
-console.log(heading);
-
-// jsx => html like
-// React element
-const jsxHeading = <h1 id="heading">hii form jsx syntax 🍟</h1>;
-
-
-
-
-
-// React function component
-
-const number =100
-
-const Heading = () => {
+const Header = () => {
   return (
-    <div id="container">
-      <h1> React functional component</h1>
-       <h2>  {  number +23 }</h2> 
-       <h3>{jsxHeading}</h3>
-      <Heading1></Heading1>    {/* component composition */}
-      {Heading1()}
+    <div className="header">
+      <div className="logoContainer">
+        <img
+          className="logo"
+          src="https://img.freepik.com/premium-vector/fast-food-logo-designs-template-food-delivery-logo-symbol_7649-3997.jpg?w=2000"
+        ></img>
+      </div>
+      <div className="navLinks">
+        <ul>
+          <li>Home</li>
+          <li>About Us</li>
+          <li>Conatct Us</li>
+          <li>Cart</li>
+        </ul>
+      </div>
     </div>
   );
 };
-const Heading1 = () => {
+
+const ResCards = (props) => {
+  const { resData } = props;
+  // console.log(resData);
+  const {
+    cloudinaryImageId,
+    name,
+    cuisines,
+    avgRating,
+    costForTwo,
+    deliveryTime,
+  } = resData?.data?.data;
   return (
-    <div id="child">
-      <h1> React functional component1</h1>
+    <div className="resCard">
+      <img
+        className="resImg"
+        src={`https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${cloudinaryImageId}`}
+      />
+
+      <h3>{name}</h3>
+      <h4>{cuisines.join(", ")}</h4>
+      <h4>{avgRating}stars </h4>
+      <h4>${costForTwo / 100} foe two</h4>
+      <h4>{deliveryTime} min </h4>
+    </div>
+  );
+};
+
+const resList = [
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "470257",
+        name: "Shahi Lazeez Handi",
+        uuid: "d93c5feb-3227-443c-a207-eb1c902d7b1b",
+        city: "55",
+        area: "Jahangirabad",
+        totalRatingsString: "50+ ratings",
+        cloudinaryImageId: "jpg8xtoef67dqeabo2u0",
+        cuisines: ["Biryani", "North Indian", "Mughlai"],
+        tags: [],
+        costForTwo: 24900,
+        costForTwoString: "₹249 FOR TWO",
+        deliveryTime: 26,
+        minDeliveryTime: 26,
+        maxDeliveryTime: 26,
+        slaString: "26 MINS",
+        lastMileTravel: 1.2000000476837158,
+        slugs: {
+          restaurant: "shahi-lazeez-handi-jahangirabad-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "SHOP NO 123 NEAR BARKHEDI POLICE CHOWKI BARKHEDI BHOPAL MADHYA PRADESH 462001",
+        locality: "Barkhedi Main Road",
+        parentId: 282337,
+        unserviceable: false,
+        veg: false,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        aggregatedDiscountInfo: {
+          header: "50% off",
+          shortDescriptionList: [
+            {
+              meta: "50% off | Use TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "50% off up to ₹100 | Use code TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        aggregatedDiscountInfoV2: {
+          header: "50% OFF",
+          shortDescriptionList: [
+            {
+              meta: "Use TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "50% off up to ₹100 | Use code TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.2 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "470257",
+          deliveryTime: 26,
+          minDeliveryTime: 26,
+          maxDeliveryTime: 26,
+          lastMileTravel: 1.2000000476837158,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "3.4",
+        totalRatings: 50,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "103203",
+        name: "Shikha Restaurant",
+        uuid: "07eaafb3-74c4-4a74-9527-6d66ce635e8c",
+        city: "55",
+        area: "Peer Gate Area",
+        totalRatingsString: "1000+ ratings",
+        cloudinaryImageId: "kep8zbuyuifnvy6ceqrl",
+        cuisines: ["North Indian", "Thalis", "South Indian"],
+        tags: [],
+        costForTwo: 20000,
+        costForTwoString: "₹200 FOR TWO",
+        deliveryTime: 31,
+        minDeliveryTime: 31,
+        maxDeliveryTime: 31,
+        slaString: "31 MINS",
+        lastMileTravel: 1.600000023841858,
+        slugs: {
+          restaurant:
+            "shikha-restaurant-old-bhopal-jahangirabad-old-bhopal-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "Hotel Shikha Palace, 63, Lakhpati Bhawan, Jain Mandir Road, Mangalwara, Bhopal, Jhangirabad, Bhopal",
+        locality: "Lakhpati Bhawan",
+        parentId: 182996,
+        unserviceable: false,
+        veg: true,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.6 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "103203",
+          deliveryTime: 31,
+          minDeliveryTime: 31,
+          maxDeliveryTime: 31,
+          lastMileTravel: 1.600000023841858,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "3.8",
+        totalRatings: 1000,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "103207",
+        name: "Mamaji Jalebi Wale",
+        uuid: "12180d6f-c648-4465-ad82-b5dff0e2a425",
+        city: "55",
+        area: "Old Bhopal Jahangirabad",
+        totalRatingsString: "1000+ ratings",
+        cloudinaryImageId: "dpem4pv8qbhez5o2wz7i",
+        cuisines: ["North Indian", "Snacks", "South Indian"],
+        tags: [],
+        costForTwo: 20000,
+        costForTwoString: "₹200 FOR TWO",
+        deliveryTime: 25,
+        minDeliveryTime: 25,
+        maxDeliveryTime: 25,
+        slaString: "25 MINS",
+        lastMileTravel: 2.200000047683716,
+        slugs: {
+          restaurant:
+            "mamaji-jalebi-wale-old-bhopal-jahangirabad-old-bhopal-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "Address: S.No. 8 & 9, Lakherapura, Ibrahimpura,, Peer Gate Area, Ibrahimpura, Peer Gate Area",
+        locality: "Lakherapura",
+        parentId: 131131,
+        unserviceable: false,
+        veg: true,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "2.2 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "103207",
+          deliveryTime: 25,
+          minDeliveryTime: 25,
+          maxDeliveryTime: 25,
+          lastMileTravel: 2.200000047683716,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "4.0",
+        totalRatings: 1000,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "115297",
+        name: "Bff- Bhopal Food Factory",
+        uuid: "227f3e29-a282-4354-befe-80ece05028b7",
+        city: "55",
+        area: "Karond Chauraha",
+        totalRatingsString: "5000+ ratings",
+        cloudinaryImageId: "nqqfozxmfnegaxzzkavy",
+        cuisines: [
+          "North Indian",
+          "Indian",
+          "South Indian",
+          "Tandoor",
+          "Beverages",
+          "Thalis",
+          "Chinese",
+          "Pastas",
+        ],
+        tags: [],
+        costForTwo: 40000,
+        costForTwoString: "₹400 FOR TWO",
+        deliveryTime: 38,
+        minDeliveryTime: 38,
+        maxDeliveryTime: 38,
+        slaString: "38 MINS",
+        lastMileTravel: 5.599999904632568,
+        slugs: {
+          restaurant: "bff-bhopal-food-factory-karond-karond",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address: "Shop No 1 ,Ashirwad Complex,Karond Chouraha, Bhopal",
+        locality: "Peepal Chowraha",
+        parentId: 43853,
+        unserviceable: false,
+        veg: false,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        aggregatedDiscountInfo: {
+          header: "Flat ₹125 off",
+          shortDescriptionList: [
+            {
+              meta: "Flat ₹125 off on orders above ₹199",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "Flat ₹125 off on orders above ₹199 | Use code MATCHDEAL125",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        aggregatedDiscountInfoV2: {
+          header: "₹125 OFF",
+          shortDescriptionList: [
+            {
+              meta: "Use MATCHDEAL125",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "Flat ₹125 off on orders above ₹199 | Use code MATCHDEAL125",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        ribbon: [
+          {
+            type: "PROMOTED",
+          },
+        ],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 2900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 2900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "2900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID:
+          "cid=6281808~p=22~eid=00000187-65c1-9d07-1f3e-b72200131603",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "5.5 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "115297",
+          deliveryTime: 38,
+          minDeliveryTime: 38,
+          maxDeliveryTime: 38,
+          lastMileTravel: 5.599999904632568,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: true,
+        avgRating: "3.8",
+        totalRatings: 5000,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "414985",
+        name: "MAMA Bakers Point",
+        uuid: "769d4c35-c259-49c1-8029-c8350ed9e7da",
+        city: "55",
+        area: "Jhangirabad",
+        totalRatingsString: "20+ ratings",
+        cloudinaryImageId: "vjqdvpfrd2ynonnpdlm8",
+        cuisines: ["Bakery", "Snacks"],
+        tags: [],
+        costForTwo: 25000,
+        costForTwoString: "₹250 FOR TWO",
+        deliveryTime: 27,
+        minDeliveryTime: 27,
+        maxDeliveryTime: 27,
+        slaString: "27 MINS",
+        lastMileTravel: 1.399999976158142,
+        slugs: {
+          restaurant: "mama-bakers-point-jahangirabad-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "Shop No, Jagdamba Hotel, 1, 80 Feet Rd, near Mazar, Ashok Garden, Henotiya Near Sai Baba Mandir, Krishna Campus, Hinotiya Jagir, Madhya Pradesh 462010, India",
+        locality: "Ashok Garden",
+        parentId: 250091,
+        unserviceable: false,
+        veg: true,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.3 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "414985",
+          deliveryTime: 27,
+          minDeliveryTime: 27,
+          maxDeliveryTime: 27,
+          lastMileTravel: 1.399999976158142,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "4.2",
+        totalRatings: 20,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "415686",
+        name: "Top 'N Town",
+        uuid: "9cfbb801-c36b-426a-93d3-48e95d718c85",
+        city: "55",
+        area: "Bairagarh",
+        totalRatingsString: "50+ ratings",
+        cloudinaryImageId: "tqo3mcvoiefpf3hkj3jf",
+        cuisines: ["Ice Cream", "Desserts"],
+        tags: [],
+        costForTwo: 10000,
+        costForTwoString: "₹100 FOR TWO",
+        deliveryTime: 31,
+        minDeliveryTime: 31,
+        maxDeliveryTime: 31,
+        slaString: "31 MINS",
+        lastMileTravel: 3.5,
+        slugs: {
+          restaurant: "top-n-town-bairagarh-bairagarh",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "SHOP NO 14 MEENAKSHI COMPLEX IDGAH HILLS BHOPAL (M.P.) 402001",
+        locality: "Idgah Road",
+        parentId: 217200,
+        unserviceable: false,
+        veg: true,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "3.5 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "415686",
+          deliveryTime: 31,
+          minDeliveryTime: 31,
+          maxDeliveryTime: 31,
+          lastMileTravel: 3.5,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "4.3",
+        totalRatings: 50,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "640173",
+        name: "Kwality Walls Frozen Dessert and Ice Cream Shop",
+        uuid: "6d6053ac-b31a-4abe-8644-2520c1c2d59b",
+        city: "55",
+        area: "Habib Ganj",
+        totalRatingsString: "20+ ratings",
+        cloudinaryImageId: "hxhddq5lravcvcxmujbl",
+        cuisines: ["Desserts", "Ice Cream", "Ice Cream Cakes"],
+        tags: [],
+        costForTwo: 20000,
+        costForTwoString: "₹200 FOR TWO",
+        deliveryTime: 23,
+        minDeliveryTime: 23,
+        maxDeliveryTime: 23,
+        slaString: "23 MINS",
+        lastMileTravel: 4.800000190734863,
+        slugs: {
+          restaurant:
+            "kwality-walls-frozen-dessert-and-ice-cream-shop-mp-nagar-mp-nagar-5",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "Shop No. 01, Shikhar Tower, 6 No. Bus Stop, Shivaji Nagar, Bhopal 462016 (HUL- I43A641P3265)",
+        locality: "Shivaji Nagar",
+        parentId: 582,
+        unserviceable: false,
+        veg: true,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        aggregatedDiscountInfo: {
+          header: "10% off",
+          shortDescriptionList: [
+            {
+              meta: "10% off | Use SPECIALS",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "10% off up to ₹40 on select items | Use code SPECIALS",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        aggregatedDiscountInfoV2: {
+          header: "10% OFF",
+          shortDescriptionList: [
+            {
+              meta: "Use SPECIALS",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "10% off up to ₹40 on select items | Use code SPECIALS",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        ribbon: [
+          {
+            type: "PROMOTED",
+          },
+        ],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 2900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 2900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "2900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID:
+          "cid=6392209~p=25~eid=00000187-65c1-9d07-1f3e-b7230013194b",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "4.8 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "640173",
+          deliveryTime: 23,
+          minDeliveryTime: 23,
+          maxDeliveryTime: 23,
+          lastMileTravel: 4.800000190734863,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: true,
+        avgRating: "4.3",
+        totalRatings: 20,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "101997",
+        name: "Rajhans Restaurant & Thali (Ghora Nikkas)",
+        uuid: "71329bc4-129e-4008-8f4b-0e69b24e8020",
+        city: "55",
+        area: "Peer Gate Area",
+        totalRatingsString: "5000+ ratings",
+        cloudinaryImageId: "aipwx1svepzdvsreuszq",
+        cuisines: [
+          "Thalis",
+          "North Indian",
+          "South Indian",
+          "Desserts",
+          "Fast Food",
+          "Chinese",
+        ],
+        tags: [],
+        costForTwo: 30000,
+        costForTwoString: "₹300 FOR TWO",
+        deliveryTime: 31,
+        minDeliveryTime: 31,
+        maxDeliveryTime: 31,
+        slaString: "31 MINS",
+        lastMileTravel: 1.7999999523162842,
+        slugs: {
+          restaurant:
+            "rajhans-restaurant-old-bhopal-jahangirabad-old-bhopal-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "Mandir Kamali Road  Ghora Nikkas  Near Nadara Bus Stand  Peer Gate Area  Bhopal",
+        locality: "Mandir Kamali Road",
+        parentId: 165649,
+        unserviceable: false,
+        veg: true,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        aggregatedDiscountInfo: {
+          header: "20% off",
+          shortDescriptionList: [
+            {
+              meta: "20% off | Use TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "20% off up to ₹50 | Use code TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        aggregatedDiscountInfoV2: {
+          header: "20% OFF",
+          shortDescriptionList: [
+            {
+              meta: "Use TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "20% off up to ₹50 | Use code TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.7 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "101997",
+          deliveryTime: 31,
+          minDeliveryTime: 31,
+          maxDeliveryTime: 31,
+          lastMileTravel: 1.7999999523162842,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "4.0",
+        totalRatings: 5000,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "368595",
+        name: "Bhopal Udipi Restaurant - Chola Road",
+        uuid: "67ea1c1c-2714-42d2-9e67-ed29834fa370",
+        city: "55",
+        area: "Chola Road",
+        totalRatingsString: "1000+ ratings",
+        cloudinaryImageId: "rsk6jwh8iwou7sstdsdy",
+        cuisines: [
+          "South Indian",
+          "Snacks",
+          "Thalis",
+          "Chinese",
+          "North Indian",
+          "Fast Food",
+        ],
+        tags: [],
+        costForTwo: 20000,
+        costForTwoString: "₹200 FOR TWO",
+        deliveryTime: 28,
+        minDeliveryTime: 28,
+        maxDeliveryTime: 28,
+        slaString: "28 MINS",
+        lastMileTravel: 2.5999999046325684,
+        slugs: {
+          restaurant: "bhopal-udipi-restaurant-jahangirabad-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address: "05 Sataya Gyan Nagar Chhola Manadir Bhopal\t 462001",
+        locality: "Sataya Gyan Nagar",
+        parentId: 45152,
+        unserviceable: false,
+        veg: true,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        aggregatedDiscountInfo: {
+          header: "60% off",
+          shortDescriptionList: [
+            {
+              meta: "60% off | Use TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "60% off up to ₹120 | Use code TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        aggregatedDiscountInfoV2: {
+          header: "60% OFF",
+          shortDescriptionList: [
+            {
+              meta: "Use TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "60% off up to ₹120 | Use code TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "2.5 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "368595",
+          deliveryTime: 28,
+          minDeliveryTime: 28,
+          maxDeliveryTime: 28,
+          lastMileTravel: 2.5999999046325684,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "3.8",
+        totalRatings: 1000,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "478376",
+        name: "Shri Hari Restaurant",
+        uuid: "5e05b1aa-33e0-48db-9c6b-f759c24bd9e5",
+        city: "55",
+        area: "Jhangirabad",
+        totalRatingsString: "Too Few Ratings",
+        cloudinaryImageId: "u1zxwzc8h2mvhhtfqib1",
+        cuisines: ["Chinese", "Fast Food", "Snacks", "Pizzas"],
+        tags: [],
+        costForTwo: 20000,
+        costForTwoString: "₹200 FOR TWO",
+        deliveryTime: 28,
+        minDeliveryTime: 28,
+        maxDeliveryTime: 28,
+        slaString: "28 MINS",
+        lastMileTravel: 1.600000023841858,
+        slugs: {
+          restaurant: "shri-hari-restaurant-jahangirabad-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "SHRI HARI RAM PATEL KI CHAAL SHRI HARI CAMPUS 30 FIT ROAD HINOTIYA BHOPAL MP 462010",
+        locality: "Shri Hari Campus",
+        parentId: 12142,
+        unserviceable: false,
+        veg: false,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.6 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "478376",
+          deliveryTime: 28,
+          minDeliveryTime: 28,
+          maxDeliveryTime: 28,
+          lastMileTravel: 1.600000023841858,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "--",
+        totalRatings: 0,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "86448",
+        name: "Street Foods by Punjab Grill",
+        uuid: "54a8fcf2-4505-4d29-b19c-ead8af5d06f6",
+        city: "55",
+        area: "Maharana Pratap Nagar",
+        totalRatingsString: "1000+ ratings",
+        cloudinaryImageId: "nqnl6ns99vhhelpz7ftu",
+        cuisines: [
+          "North Indian",
+          "Indian",
+          "Biryani",
+          "Punjabi",
+          "Kebabs",
+          "Mughlai",
+          "Desserts",
+        ],
+        tags: [],
+        costForTwo: 35000,
+        costForTwoString: "₹350 FOR TWO",
+        deliveryTime: 46,
+        minDeliveryTime: 46,
+        maxDeliveryTime: 46,
+        slaString: "46 MINS",
+        lastMileTravel: 4.300000190734863,
+        slugs: {
+          restaurant: "street-foods-by-punjab-grill-db-mall-new-market",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "Dainik Bhaskar Mall, T-9, 11, Hoshangabad Rd, DB City Mall, Zone-I, Maharana Pratap Nagar, Bhopal, Madhya Pradesh 462016",
+        locality: "Db City Mall",
+        parentId: 1345,
+        unserviceable: false,
+        veg: false,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        aggregatedDiscountInfo: {
+          header: "Flat ₹125 off",
+          shortDescriptionList: [
+            {
+              meta: "Flat ₹125 off on orders above ₹199",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "Flat ₹125 off on orders above ₹199 | Use code MATCHDEAL125",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        aggregatedDiscountInfoV2: {
+          header: "₹125 OFF",
+          shortDescriptionList: [
+            {
+              meta: "Use MATCHDEAL125",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "Flat ₹125 off on orders above ₹199 | Use code MATCHDEAL125",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        ribbon: [
+          {
+            type: "PROMOTED",
+          },
+        ],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 2900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 2900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "2900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID:
+          "cid=6281794~p=31~eid=00000187-65c1-9d07-1f3e-b72500131f5d",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "4.3 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "86448",
+          deliveryTime: 46,
+          minDeliveryTime: 46,
+          maxDeliveryTime: 46,
+          lastMileTravel: 4.300000190734863,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: true,
+        avgRating: "3.9",
+        totalRatings: 1000,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "525953",
+        name: "Fast Food Tack Away",
+        uuid: "c571f6e9-4983-4f73-a8b8-97d33319619b",
+        city: "55",
+        area: "Jhangirabad",
+        totalRatingsString: "Too Few Ratings",
+        cloudinaryImageId: "oa2lcmuqvg97ac69rx5x",
+        cuisines: ["Indian", "Fast Food", "Snacks", "Beverages"],
+        tags: [],
+        costForTwo: 20000,
+        costForTwoString: "₹200 FOR TWO",
+        deliveryTime: 31,
+        minDeliveryTime: 31,
+        maxDeliveryTime: 31,
+        slaString: "31 MINS",
+        lastMileTravel: 1.100000023841858,
+        slugs: {
+          restaurant: "fast-food-tack-away-jahangirabad-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "77 JR MIG AISHBAGH, Bhopal, Bhopal,  Bhopal, Madhya Pradesh - 462010",
+        locality: "Old Thana Road",
+        parentId: 316150,
+        unserviceable: false,
+        veg: true,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.1 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "525953",
+          deliveryTime: 31,
+          minDeliveryTime: 31,
+          maxDeliveryTime: 31,
+          lastMileTravel: 1.100000023841858,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "--",
+        totalRatings: 0,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "102742",
+        name: "Hotel Shikha Palace",
+        uuid: "fd476a71-4138-476e-a124-89976bdc647c",
+        city: "55",
+        area: "Peer Gate Area",
+        totalRatingsString: "100+ ratings",
+        cloudinaryImageId: "cqmufoibwm5csjenyqsy",
+        cuisines: ["Chinese", "South Indian"],
+        tags: [],
+        costForTwo: 20000,
+        costForTwoString: "₹200 FOR TWO",
+        deliveryTime: 28,
+        minDeliveryTime: 28,
+        maxDeliveryTime: 28,
+        slaString: "28 MINS",
+        lastMileTravel: 1.600000023841858,
+        slugs: {
+          restaurant:
+            "hotel-shikha-palace-old-bhopal-jahangirabad-old-bhopal-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "63, Mangalwara, Lakhpati Bhavan, Jain Mandir Road, Azad Market, Opposite Mangalwara Thana, Peer Gate Area, Bhopal",
+        locality: "Peer Gate Area",
+        parentId: 102211,
+        unserviceable: false,
+        veg: false,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.6 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "102742",
+          deliveryTime: 28,
+          minDeliveryTime: 28,
+          maxDeliveryTime: 28,
+          lastMileTravel: 1.600000023841858,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "3.6",
+        totalRatings: 100,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "429571",
+        name: "SHARMA JI'S",
+        uuid: "5e0514a4-fe4e-4cee-80aa-0ac15a597ed5",
+        city: "55",
+        area: "Jhangirabad",
+        totalRatingsString: "50+ ratings",
+        cloudinaryImageId: "c9p45z34hg42fyyib8kr",
+        cuisines: [
+          "Chinese",
+          "North Indian",
+          "Snacks",
+          "Fast Food",
+          "Salads",
+          "Thalis",
+        ],
+        tags: [],
+        costForTwo: 30000,
+        costForTwoString: "₹300 FOR TWO",
+        deliveryTime: 22,
+        minDeliveryTime: 22,
+        maxDeliveryTime: 22,
+        slaString: "22 MINS",
+        lastMileTravel: 1.7000000476837158,
+        slugs: {
+          restaurant: "sharma-ji's-jahangirabad-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "Shop no. 7 Ashoka Gardan, Bhopal, Bhopal, Bhopal, Madhya Pradesh, 462023",
+        locality: "Ashoka Gardan",
+        parentId: 239617,
+        unserviceable: false,
+        veg: false,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.7 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "429571",
+          deliveryTime: 22,
+          minDeliveryTime: 22,
+          maxDeliveryTime: 22,
+          lastMileTravel: 1.7000000476837158,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "4.2",
+        totalRatings: 50,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "107530",
+        name: "Shobhit's Food Storm",
+        uuid: "3b76f60d-a4e4-4ed2-9fe9-ccdfe333d7a8",
+        city: "55",
+        area: "Peer Gate Area",
+        totalRatingsString: "100+ ratings",
+        cloudinaryImageId: "ifmlrdo8pvifxrv6vfxc",
+        cuisines: ["Fast Food", "Chinese", "Snacks", "Pizzas", "Beverages"],
+        tags: [],
+        costForTwo: 25000,
+        costForTwoString: "₹250 FOR TWO",
+        deliveryTime: 30,
+        minDeliveryTime: 30,
+        maxDeliveryTime: 30,
+        slaString: "30 MINS",
+        lastMileTravel: 1.7999999523162842,
+        slugs: {
+          restaurant:
+            "shobhits-food-storm-old-bhopal-jahangirabad-old-bhopal-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "22, Guliya Dai Street, Lalwani Press, Itwara Road, Chowk Bazar, Peer Gate Area, Bhopal",
+        locality: "Jahangirabad",
+        parentId: 183932,
+        unserviceable: false,
+        veg: true,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        aggregatedDiscountInfo: {
+          header: "Flat ₹175 off",
+          shortDescriptionList: [
+            {
+              meta: "Flat ₹175 off on orders above ₹399",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "Flat ₹175 off on orders above ₹399 | Use code MATCHDEAL175",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        aggregatedDiscountInfoV2: {
+          header: "₹175 OFF",
+          shortDescriptionList: [
+            {
+              meta: "Use MATCHDEAL175",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "Flat ₹175 off on orders above ₹399 | Use code MATCHDEAL175",
+              discountType: "Flat",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.7 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "107530",
+          deliveryTime: 30,
+          minDeliveryTime: 30,
+          maxDeliveryTime: 30,
+          lastMileTravel: 1.7999999523162842,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "3.7",
+        totalRatings: 100,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+  {
+    cardType: "restaurant",
+    layoutAlignmentType: "VERTICAL",
+    data: {
+      type: "restaurant",
+      data: {
+        type: "F",
+        id: "470258",
+        name: "FresChops Bar",
+        uuid: "bb568ee1-347e-4c66-b94c-00afadac53a4",
+        city: "55",
+        area: "Jahangirabad",
+        totalRatingsString: "Too Few Ratings",
+        cloudinaryImageId: "sjb72r0dmkrpeqvvxeq4",
+        cuisines: ["Biryani", "Kebabs", "North Indian"],
+        tags: [],
+        costForTwo: 30000,
+        costForTwoString: "₹300 FOR TWO",
+        deliveryTime: 29,
+        minDeliveryTime: 29,
+        maxDeliveryTime: 29,
+        slaString: "29 MINS",
+        lastMileTravel: 1.2000000476837158,
+        slugs: {
+          restaurant: "bhoi-innovation-jahangirabad-jahangirabad",
+          city: "bhopal",
+        },
+        cityState: "55",
+        address:
+          "SHOP NO 123 NEAR BARKHEDI POLICE CHOWKI BARKHEDI BHOPAL MADHYA PRADESH 462008",
+        locality: "Barkhedi Road",
+        parentId: 315268,
+        unserviceable: false,
+        veg: false,
+        select: false,
+        favorite: false,
+        tradeCampaignHeaders: [],
+        aggregatedDiscountInfo: {
+          header: "50% off",
+          shortDescriptionList: [
+            {
+              meta: "50% off | Use TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "50% off up to ₹100 | Use code TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        aggregatedDiscountInfoV2: {
+          header: "50% OFF",
+          shortDescriptionList: [
+            {
+              meta: "Use TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          descriptionList: [
+            {
+              meta: "50% off up to ₹100 | Use code TRYNEW",
+              discountType: "Percentage",
+              operationType: "RESTAURANT",
+            },
+          ],
+          subHeader: "",
+          headerType: 0,
+          superFreedel: "",
+        },
+        chain: [],
+        feeDetails: {
+          fees: [
+            {
+              name: "distance",
+              fee: 1900,
+              message: "",
+            },
+            {
+              name: "time",
+              fee: 0,
+              message: "",
+            },
+            {
+              name: "special",
+              fee: 0,
+              message: "",
+            },
+          ],
+          totalFees: 1900,
+          message: "",
+          title: "Delivery Charge",
+          amount: "1900",
+          icon: "",
+        },
+        availability: {
+          opened: true,
+          nextOpenMessage: "",
+          nextCloseMessage: "",
+        },
+        longDistanceEnabled: 0,
+        rainMode: "NONE",
+        thirdPartyAddress: false,
+        thirdPartyVendor: "",
+        adTrackingID: "",
+        badges: {
+          imageBased: [],
+          textBased: [],
+          textExtendedBadges: [],
+        },
+        lastMileTravelString: "1.2 kms",
+        hasSurge: false,
+        sla: {
+          restaurantId: "470258",
+          deliveryTime: 29,
+          minDeliveryTime: 29,
+          maxDeliveryTime: 29,
+          lastMileTravel: 1.2000000476837158,
+          lastMileDistance: 0,
+          serviceability: "SERVICEABLE",
+          rainMode: "NONE",
+          longDistance: "NOT_LONG_DISTANCE",
+          preferentialService: false,
+          iconType: "EMPTY",
+        },
+        promoted: false,
+        avgRating: "--",
+        totalRatings: 0,
+        new: false,
+      },
+      subtype: "basic",
+    },
+    parentWidget: false,
+  },
+];
+const Body = () => {
+  return (
+    <div className="body">
+      <div className="search">Search</div>
+      <div className="resContainer">
+        {resList.map((restaurant,index) => {
+
+          return(
+
+            <ResCards key={restaurant.data.data.id} resData={restaurant} />
+            // we can use index as a kay 
+          )
+
+
+       })}
+      </div>
+    </div>
+  );
+};
+
+const AppLayout = () => {
+  return (
+    <div className="app">
+      <Header />
+      <Body />
     </div>
   );
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// root.render(heading)
-// root.render(jsxHeading)
-root.render(<Heading/>)
-// root.render( <><Heading /><Heading1 /></>);
+root.render(<AppLayout />);
