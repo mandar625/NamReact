@@ -51,3 +51,11 @@
     width: 100% ;
 }
  
+.filter-btn{
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid black;
+    background: aliceblue;
+    border-radius: 12px;
+    cursor: pointer;
+}
