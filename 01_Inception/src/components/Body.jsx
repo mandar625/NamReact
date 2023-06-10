@@ -1,36 +1,80 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import resList from "../utils/mockdata";
 import ResCards from "./ResCards";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
-    const [restaurantList, setrestaurantList] = useState(resList)
+    const [restaurantList, setrestaurantList] = useState([]);
+    const [serachText, setSerachText] = useState("");
+    const [filtered , setFiltered] = useState([])
 
-    return (
+    useEffect(() => {
+        // console.log("Useeffext Called");
+        fetchdata();
+    }, []);
+
+    const fetchdata = async () => {
+        const data = await fetch(
+            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.2599333&lng=77.412615&page_type=DESKTOP_WEB_LISTING"
+        );
+
+        const json = await data.json();
+
+        console.log(json);
+        setrestaurantList(json.data.cards[2].data.data.cards);
+        setFiltered(json.data.cards[2].data.data.cards);
+    };
+
+    return restaurantList.length === 0 ? (
+        <Shimmer />
+    ) : (
         <div className="body">
             {/* <div className="search">Search</div> */}
-            <div className="filter" >
-                <button onClick={() => {
-                    const filteredList = restaurantList.filter(
+            <div className="filter">
+                <div className="search">
+                    <input
+                        type="text"
+                        placeholder="serach here "
+                        value={serachText}
+                        onChange={(e) => {
+                            setSerachText(e.target.value);
+                        }}
+                    />
+                    <button
+                        onClick={() => {
+                            console.log(serachText);
+                           const filteredrestaurant = restaurantList.filter((ress)=>{
 
-                        (res) => res.data.data.avgRating > 4
-                    )
+                                 return(
+                                     
+                                     ress.data.name.toLowerCase().includes(serachText.toLowerCase()) 
+                                 )
 
-                    // console.log(filteredList);
-                    setrestaurantList(filteredList)
+                            })
 
+                            setFiltered(filteredrestaurant)
+                        }}
+                    >
+                        Serach
+                    </button>
+                </div>
+                <button
+                    onClick={() => {
+                        const filteredList = restaurantList.filter(
+                            (res) => res.data.avgRating > 4
+                        );
 
-                }} className="filter-btn" >Top reated restaurant</button>
+                        // console.log(filteredList);
+                        setrestaurantList(filteredList);
+                    }}
+                    className="filter-btn"
+                >
+                    Top reated restaurant whose rating is above 4*
+                </button>
             </div>
             <div className="resContainer">
-                {restaurantList.map((restaurant, index) => {
-
-                    return (
-
-                        <ResCards key={restaurant.data.data.id} resData={restaurant} />
-                        // we can use index as a kay 
-                    )
-
-
+                {filtered.map((restaurant, index) => {
+                    return <ResCards key={restaurant.data.id} resData={restaurant} />;
                 })}
             </div>
         </div>
