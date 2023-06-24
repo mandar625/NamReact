@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { LOGO_URL } from "../utils/constant";
+import { Link } from 'react-router-dom';
 
 
 const Header = () => {
+  const [btName, setBtname] = useState("login")
 
-  const [btName , setBtname] = useState("login")
+  // if their is no dependancy array useEffect caled at every render
+  // if their is  dependancy array  empty [] useEffect caled at initial render render
+  // if we puit insidedependancy array then it wll only be called when dependancy changes
+
+  console.log("header render");
+
+  // useEffect(()=>{
+  //   console.log("useEff is called");
+  // },[])
+  useEffect(() => {
+    console.log("useEff is called");
+  }, [btName])
+
   return (
     <div className="header">
       <div className="logoContainer">
@@ -16,16 +30,18 @@ const Header = () => {
       </div>
       <div className="navLinks">
         <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Conatct Us</li>
+          <li><Link to="/" >Home</Link></li>
+          <li><Link to="/about" >About</Link></li>
+          <li><Link to="/contact" >Conatct Us</Link></li>
+
           <li>Cart</li>
-          <button 
-          style={{ padding: "0 10px", cursor: "pointer" }}
-           onClick={() => {
-             
-            btName === "login"  ?setBtname("logout")  :setBtname("login")  }}
-             >{btName}</button>
+          <button
+            style={{ padding: "0 10px", cursor: "pointer" }}
+            onClick={() => {
+
+              btName === "login" ? setBtname("logout") : setBtname("login")
+            }}
+          >{btName}</button>
         </ul>
       </div>
     </div>
