@@ -10,7 +10,6 @@ const Body = () => {
     const [filtered , setFiltered] = useState([])
 
     useEffect(() => {
-        // console.log("Useeffext Called");
         fetchdata();
     }, []);
 

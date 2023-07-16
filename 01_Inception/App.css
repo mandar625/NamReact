@@ -70,3 +70,9 @@
     background-color: rgb(250, 245, 238);
     margin: 20px;
 }
+
+.userCard{
+    border: 1px solid rgb(66, 63, 63);
+    padding: 4px;
+}
+
