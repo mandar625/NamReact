@@ -3,11 +3,12 @@ import resList from "../utils/mockdata";
 import ResCards from "./ResCards";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
     const [restaurantList, setrestaurantList] = useState([]);
     const [serachText, setSerachText] = useState("");
-    const [filtered , setFiltered] = useState([])
+    const [filtered, setFiltered] = useState([])
 
     useEffect(() => {
         fetchdata();
@@ -21,9 +22,25 @@ const Body = () => {
         const json = await data.json();
 
         console.log(json);
-        setrestaurantList(json.data.cards[2].data.data.cards);
-        setFiltered(json.data.cards[2].data.data.cards);
+        setrestaurantList(json.data.cards[5].card.card.gridElements.infoWithStyle.restaurants);
+        setFiltered(json.data.cards[5].card.card.gridElements.infoWithStyle.restaurants);
     };
+
+
+
+
+
+    const onlineStatus = useOnlineStatus()
+      console.log(onlineStatus,"onlineStatus");
+
+    if (onlineStatus === false)
+        return (
+
+            <h1> You are Offline</h1>
+
+        )
+
+
 
     return restaurantList.length === 0 ? (
         <Shimmer />
@@ -43,12 +60,12 @@ const Body = () => {
                     <button
                         onClick={() => {
                             console.log(serachText);
-                           const filteredrestaurant = restaurantList.filter((ress)=>{
+                            const filteredrestaurant = restaurantList.filter((ress) => {
 
-                                 return(
-                                     
-                                     ress.data.name.toLowerCase().includes(serachText.toLowerCase()) 
-                                 )
+                                return (
+
+                                    ress.data.name.toLowerCase().includes(serachText.toLowerCase())
+                                )
 
                             })
 
@@ -64,8 +81,8 @@ const Body = () => {
                             (res) => res.data.avgRating > 4
                         );
 
-                        // console.log(filteredList);
-                        setrestaurantList(filteredList);
+                        console.log(filteredList);
+                        setFiltered(filteredList);
                     }}
                     className="filter-btn"
                 >
@@ -74,7 +91,7 @@ const Body = () => {
             </div>
             <div className="resContainer">
                 {filtered.map((restaurant, index) => {
-                    return <Link key={restaurant.data.id} to={"/restaurant/" + restaurant.data.id} ><ResCards  resData={restaurant} /></Link> ;
+                    return <Link key={restaurant.info.id} to={"/restaurant/" + restaurant.info.id} ><ResCards resData={restaurant} /></Link>;
                 })}
             </div>
         </div>
