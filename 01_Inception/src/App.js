@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from "react";
+import React, {lazy, Suspense, useEffect, useState} from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -7,18 +7,36 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import ErrorPage from "./components/ErrorPage";
 import RestaurantMenu from "./components/RestaurantMenu";
+import userContext from "./utils/userContext";
+// import 'antd/dist/antd.css';
+import 'antd/dist/reset.css';
+// import "App.css";
+
 // import Grocery from "./components/Grocery";
 
 const Grocery = lazy(() => import("./components/Grocery"))
 const About = lazy(() => import("./components/About"))
 
 const AppLayout = () => {
+
+  // suppose auth logic is here...
+  const [userName, setuserName]  = useState();
+
+  useEffect(()=>{
+    // api call
+    let data = {
+      name :"Mandar Marathe"
+    }
+    setuserName(data.name)
+  },[])
   return (
+    <userContext.Provider value={{loggedInuser:userName , setuserName}} >
     <div className="app">
       <Header />
       {/* childred routing.... */}
       <Outlet />
     </div>
+    </userContext.Provider>
   );
 };
 
